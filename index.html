@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aragão Gás — Gás rápido, seguro e direto na sua casa</title>
+<meta name="description" content="Aragão Gás: peça seu botijão de gás pelo WhatsApp e receba em casa com rapidez e segurança. Pagamento em Cartão, Pix, Dinheiro ou Vale Gás.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     1. CONFIGURAÇÃO VISUAL — TOKENS DE COR E TIPOGRAFIA
+     ========================================================= */
+  :root{
+    --azul-profundo: #0F3B5C;
+    --azul-medio:    #1C6FA8;
+    --azul-suave:    #E9F3FB;
+    --branco:        #FFFFFF;
+    --amarelo:       #F5B301;
+    --laranja:       #EE7A1A;
+    --texto:         #16232E;
+    --texto-suave:   #52626F;
+    --linha:         #D9E6EF;
+    --whatsapp:      #25D366;
+    --whatsapp-esc:  #1DA851;
+    --sombra: 0 12px 30px -12px rgba(15,59,92,0.25);
+    --raio-botao: 12px;
+    --raio-icone: 999px;
+    --fonte-titulo: 'Manrope', sans-serif;
+    --fonte-texto: 'Inter', sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--fonte-texto);
+    color:var(--texto);
+    background:var(--branco);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:var(--fonte-titulo);
+    color:var(--azul-profundo);
+    line-height:1.15;
+    margin:0 0 .5em 0;
+  }
+  p{ margin:0 0 1em 0; }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  button{ font-family:inherit; cursor:pointer; }
+  .container{
+    width:100%;
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+  section{ padding:64px 0; }
+  .eyebrow-off{ } /* propositalmente não usamos rótulos "EYEBROW" em caixa alta */
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  :focus-visible{
+    outline:3px solid var(--laranja);
+    outline-offset:2px;
+    border-radius:4px;
+  }
+
+  /* =========================================================
+     2. BOTÕES
+     ========================================================= */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 26px;
+    font-size:1rem;
+    font-weight:700;
+    border-radius:var(--raio-botao);
+    border:2px solid transparent;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    min-height:52px;
+    white-space:nowrap;
+  }
+  .btn:active{ transform:scale(.98); }
+  .btn-primario{
+    background:var(--laranja);
+    color:var(--branco);
+    box-shadow:0 10px 24px -8px rgba(238,122,26,0.55);
+  }
+  .btn-primario:hover{ background:#d96b0f; }
+  .btn-whatsapp{
+    background:var(--whatsapp);
+    color:var(--branco);
+    box-shadow:0 10px 24px -8px rgba(37,211,102,0.55);
+  }
+  .btn-whatsapp:hover{ background:var(--whatsapp-esc); }
+  .btn-secundario{
+    background:transparent;
+    color:var(--branco);
+    border-color:rgba(255,255,255,.55);
+  }
+  .btn-secundario:hover{ background:rgba(255,255,255,.12); }
+  .btn-outline-azul{
+    background:transparent;
+    border-color:var(--azul-medio);
+    color:var(--azul-medio);
+  }
+  .btn-outline-azul:hover{ background:var(--azul-suave); }
+  .btn-bloco{ width:100%; }
+
+  /* =========================================================
+     3. CABEÇALHO
+     ========================================================= */
+  .cabecalho{
+    position:sticky;
+    top:0;
+    z-index:60;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--linha);
+  }
+  .cabecalho .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+  .marca{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    font-family:var(--fonte-titulo);
+    font-weight:800;
+    font-size:1.25rem;
+    color:var(--azul-profundo);
+  }
+  .marca .chama{ width:34px; height:34px; flex-shrink:0; }
+  .nav-desktop{
+    display:none;
+    align-items:center;
+    gap:32px;
+  }
+  .nav-desktop a{
+    text-decoration:none;
+    font-weight:600;
+    color:var(--texto);
+    font-size:.98rem;
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+  }
+  .nav-desktop a:hover{ border-color:var(--laranja); color:var(--azul-profundo); }
+  .acoes-cabecalho{ display:flex; align-items:center; gap:12px; }
+  .btn-cabecalho{
+    display:none;
+    padding:12px 20px;
+    min-height:44px;
+    font-size:.95rem;
+  }
+  .botao-menu{
+    background:none;
+    border:2px solid var(--linha);
+    border-radius:10px;
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .menu-mobile{
+    display:none;
+    flex-direction:column;
+    background:var(--branco);
+    border-bottom:1px solid var(--linha);
+    padding:8px 20px 20px;
+  }
+  .menu-mobile.aberto{ display:flex; }
+  .menu-mobile a{
+    padding:14px 4px;
+    text-decoration:none;
+    color:var(--texto);
+    font-weight:600;
+    border-bottom:1px solid var(--linha);
+  }
+  .menu-mobile .btn{ margin-top:14px; }
+
+  @media (min-width:900px){
+    .nav-desktop{ display:flex; }
+    .btn-cabecalho{ display:inline-flex; }
+    .botao-menu{ display:none; }
+  }
+
+  /* =========================================================
+     4. HERO
+     ========================================================= */
+  .hero{
+    position:relative;
+    background:radial-gradient(120% 140% at 15% -10%, #17517f 0%, var(--azul-profundo) 55%, #0a2c46 100%);
+    color:var(--branco);
+    padding:72px 0 88px;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-140px;
+    bottom:-140px;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(245,179,1,.28) 0%, rgba(245,179,1,0) 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;
+    z-index:1;
+    display:grid;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-selo{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.25);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:600;
+    margin-bottom:20px;
+  }
+  .hero-selo .ponto{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--amarelo);
+  }
+  .hero h1{
+    color:var(--branco);
+    font-size:clamp(2rem, 6vw, 3.1rem);
+    max-width:14ch;
+  }
+  .hero p.sub{
+    color:rgba(255,255,255,.85);
+    font-size:1.1rem;
+    max-width:46ch;
+  }
+  .hero-botoes{ display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
+  .hero-confianca{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    margin-top:36px;
+    padding-top:24px;
+    border-top:1px solid rgba(255,255,255,.18);
+  }
+  .hero-confianca div{ display:flex; align-items:center; gap:10px; font-size:.92rem; color:rgba(255,255,255,.85); }
+  .hero-confianca svg{ width:22px; height:22px; flex-shrink:0; }
+  .hero-arte{
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  .hero-arte svg{ width:100%; max-width:300px; height:auto; }
+
+  @media (min-width:860px){
+    .hero-grid{ grid-template-columns:1.1fr .9fr; }
+  }
+
+  /* =========================================================
+     5. SEÇÃO GENÉRICA / TÍTULOS
+     ========================================================= */
+  .titulo-secao{ max-width:640px; margin-bottom:44px; }
+  .titulo-secao h2{ font-size:clamp(1.6rem, 4vw, 2.2rem); }
+  .titulo-secao p{ color:var(--texto-suave); font-size:1.05rem; margin:0; }
+  .fundo-suave{ background:var(--azul-suave); }
+
+  /* =========================================================
+     6. PRODUTOS
+     ========================================================= */
+  .grade-produtos{
+    display:grid;
+    gap:24px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:720px){
+    .grade-produtos{ grid-template-columns:1fr 1fr; }
+  }
+  .card-produto{
+    border:1px solid var(--linha);
+    border-radius:20px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    background:var(--branco);
+    box-shadow:var(--sombra);
+  }
+  .produto-imagem{
+    background:linear-gradient(160deg, var(--azul-suave), #f7fbff);
+    border-radius:14px;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:180px;
+  }
+  .produto-imagem svg{ width:120px; height:auto; }
+  .selo-destaque{
+    align-self:flex-start;
+    background:var(--amarelo);
+    color:var(--azul-profundo);
+    font-weight:700;
+    font-size:.78rem;
+    padding:5px 12px;
+    border-radius:999px;
+  }
+  .card-produto h3{ font-size:1.3rem; margin-bottom:4px; }
+  .card-produto .preco{
+    font-family:var(--fonte-titulo);
+    font-weight:800;
+    color:var(--azul-profundo);
+    font-size:1.35rem;
+  }
+  .card-produto .preco small{
+    font-family:var(--fonte-texto);
+    font-weight:500;
+    color:var(--texto-suave);
+    font-size:.8rem;
+    display:block;
+  }
+  .card-produto ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    color:var(--texto-suave);
+    font-size:.95rem;
+  }
+  .card-produto ul li{ display:flex; gap:8px; align-items:flex-start; }
+  .card-produto ul svg{ width:18px; height:18px; flex-shrink:0; margin-top:2px; color:var(--laranja); }
+
+  .card-futuro{
+    border:2px dashed var(--linha);
+    border-radius:20px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:10px;
+    color:var(--texto-suave);
+    min-height:100%;
+  }
+  .card-futuro h3{ color:var(--texto-suave); font-size:1.1rem; }
+  .card-futuro .produto-imagem{ background:transparent; min-height:auto; margin-bottom:6px; }
+  .card-futuro svg{ width:44px; height:44px; color:var(--linha); }
+
+  /* =========================================================
+     7. FORMAS DE PAGAMENTO
+     ========================================================= */
+  .grade-pagamento{
+    display:grid;
+    gap:18px;
+    grid-template-columns:repeat(2, 1fr);
+  }
+  @media (min-width:720px){
+    .grade-pagamento{ grid-template-columns:repeat(4, 1fr); }
+  }
+  .item-pagamento{
+    background:var(--branco);
+    border-radius:16px;
+    padding:26px 18px;
+    text-align:center;
+    border-top:4px solid var(--cor-item, var(--azul-medio));
+    box-shadow:0 8px 20px -14px rgba(15,59,92,.35);
+  }
+  .item-pagamento .icone{
+    width:56px; height:56px;
+    border-radius:var(--raio-icone);
+    background:color-mix(in srgb, var(--cor-item, var(--azul-medio)) 14%, white);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 14px;
+  }
+  .item-pagamento .icone svg{ width:28px; height:28px; color:var(--cor-item, var(--azul-medio)); }
+  .item-pagamento h3{ font-size:1.02rem; margin-bottom:4px; color:var(--texto); }
+  .item-pagamento p{ font-size:.85rem; color:var(--texto-suave); margin:0; }
+  .pagamento-nota{
+    margin-top:28px;
+    text-align:center;
+    color:var(--texto-suave);
+    font-size:.95rem;
+  }
+
+  /* =========================================================
+     8. COMO FUNCIONA (sequência real → numeração é adequada)
+     ========================================================= */
+  .passos{
+    position:relative;
+    display:grid;
+    gap:36px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:820px){
+    .passos{ grid-template-columns:repeat(3, 1fr); }
+    .passos::before{
+      content:"";
+      position:absolute;
+      top:28px;
+      left:12%;
+      right:12%;
+      height:2px;
+      background:repeating-linear-gradient(90deg, var(--linha) 0 10px, transparent 10px 18px);
+      z-index:0;
+    }
+  }
+  .passo{ position:relative; z-index:1; text-align:left; }
+  .passo .numero{
+    width:56px; height:56px;
+    border-radius:50%;
+    background:var(--azul-profundo);
+    color:var(--branco);
+    font-family:var(--fonte-titulo);
+    font-weight:800;
+    font-size:1.3rem;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+    box-shadow:var(--sombra);
+  }
+  .passo:nth-child(2) .numero{ background:var(--laranja); }
+  .passo:nth-child(3) .numero{ background:var(--amarelo); color:var(--azul-profundo); }
+  .passo h3{ font-size:1.15rem; }
+  .passo p{ color:var(--texto-suave); margin:0; }
+
+  /* =========================================================
+     9. ENTREGA / INFORMAÇÕES
+     ========================================================= */
+  .info-grade{
+    display:grid;
+    gap:20px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:720px){
+    .info-grade{ grid-template-columns:repeat(3, 1fr); }
+  }
+  .info-item{
+    background:var(--branco);
+    border:1px solid var(--linha);
+    border-radius:16px;
+    padding:26px;
+  }
+  .info-item .icone-linha{
+    width:46px; height:46px;
+    border-radius:12px;
+    background:var(--azul-suave);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .info-item .icone-linha svg{ width:24px; height:24px; color:var(--azul-medio); }
+  .info-item h3{ font-size:1.05rem; margin-bottom:6px; }
+  .info-item p{ color:var(--texto-suave); font-size:.95rem; margin:0; }
+
+  /* =========================================================
+     10. CTA FINAL
+     ========================================================= */
+  .cta-final{
+    background:linear-gradient(120deg, var(--azul-profundo), #164a70);
+    color:var(--branco);
+    border-radius:24px;
+    padding:48px 32px;
+    text-align:center;
+    margin:0 20px;
+    max-width:1080px;
+    margin-inline:auto;
+  }
+  .cta-final h2{ color:var(--branco); font-size:clamp(1.5rem, 4vw, 2rem); }
+  .cta-final p{ color:rgba(255,255,255,.82); max-width:50ch; margin:0 auto 24px; }
+  .cta-botoes{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+
+  /* =========================================================
+     11. RODAPÉ
+     ========================================================= */
+  footer{
+    background:#0A2C46;
+    color:rgba(255,255,255,.85);
+    padding:56px 0 28px;
+    margin-top:64px;
+  }
+  .rodape-grade{
+    display:grid;
+    gap:32px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:720px){
+    .rodape-grade{ grid-template-columns:1.3fr 1fr 1fr; }
+  }
+  footer .marca{ color:var(--branco); margin-bottom:12px; }
+  footer h4{ color:var(--branco); font-size:.95rem; margin-bottom:14px; }
+  footer p, footer a{ color:rgba(255,255,255,.75); font-size:.92rem; text-decoration:none; }
+  footer ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .rodape-contato li{ display:flex; gap:10px; align-items:flex-start; }
+  .rodape-contato svg{ width:18px; height:18px; flex-shrink:0; margin-top:2px; color:var(--amarelo); }
+  .rodape-social{ display:flex; gap:12px; margin-top:6px; }
+  .rodape-social a{
+    width:40px; height:40px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .rodape-social svg{ width:18px; height:18px; }
+  .rodape-baixo{
+    border-top:1px solid rgba(255,255,255,.12);
+    margin-top:40px;
+    padding-top:22px;
+    font-size:.82rem;
+    color:rgba(255,255,255,.55);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 16px;
+    justify-content:space-between;
+  }
+
+  /* =========================================================
+     12. BOTÃO FLUTUANTE WHATSAPP
+     ========================================================= */
+  .flutuante-whatsapp{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:70;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:var(--whatsapp);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 12px 24px -8px rgba(0,0,0,.35);
+    border:none;
+    animation:surgir .4s ease .3s backwards;
+  }
+  .flutuante-whatsapp svg{ width:30px; height:30px; color:var(--branco); }
+  .flutuante-whatsapp:hover{ transform:scale(1.06); }
+  @keyframes surgir{ from{ opacity:0; transform:translateY(16px) scale(.8);} to{ opacity:1; transform:translateY(0) scale(1);} }
+
+  /* =========================================================
+     13. MODAL DE PEDIDO
+     ========================================================= */
+  .sobreposicao{
+    position:fixed; inset:0;
+    background:rgba(10,30,46,.55);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:80;
+    padding:0;
+    backdrop-filter:blur(2px);
+  }
+  .sobreposicao.aberta{ display:flex; }
+  .modal-pedido{
+    background:var(--branco);
+    width:100%;
+    max-width:560px;
+    max-height:92vh;
+    overflow-y:auto;
+    border-radius:20px 20px 0 0;
+    padding:28px 24px 32px;
+    animation:subir .28s ease;
+  }
+  @media (min-width:640px){
+    .sobreposicao{ align-items:center; padding:20px; }
+    .modal-pedido{ border-radius:20px; }
+  }
+  @keyframes subir{ from{ transform:translateY(24px); opacity:0;} to{ transform:translateY(0); opacity:1;} }
+  .modal-cabecalho{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+  .modal-cabecalho h2{ font-size:1.35rem; margin-bottom:2px; }
+  .modal-cabecalho p{ margin:0; color:var(--texto-suave); font-size:.92rem; }
+  .fechar-modal{
+    background:var(--azul-suave);
+    border:none;
+    width:36px; height:36px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .fechar-modal svg{ width:18px; height:18px; color:var(--azul-profundo); }
+
+  .campo{ margin-bottom:18px; }
+  .campo label{
+    display:block;
+    font-weight:600;
+    font-size:.92rem;
+    margin-bottom:6px;
+    color:var(--texto);
+  }
+  .campo input[type="text"],
+  .campo input[type="tel"],
+  .campo select,
+  .campo textarea{
+    width:100%;
+    padding:14px;
+    border:1.5px solid var(--linha);
+    border-radius:10px;
+    font-size:1rem;
+    font-family:inherit;
+    background:var(--branco);
+    color:var(--texto);
+  }
+  .campo input:focus, .campo select:focus, .campo textarea:focus{
+    border-color:var(--azul-medio);
+  }
+  .campo textarea{ resize:vertical; min-height:70px; }
+  .dica-campo{ font-size:.8rem; color:var(--texto-suave); margin-top:4px; }
+
+  .grupo-radio{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .opcao-radio{
+    border:1.5px solid var(--linha);
+    border-radius:12px;
+    padding:12px 10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:.9rem;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .opcao-radio input{ accent-color:var(--laranja); width:18px; height:18px; }
+  .opcao-radio:has(input:checked){
+    border-color:var(--laranja);
+    background:#fff6ea;
+  }
+  .opcao-radio svg{ width:20px; height:20px; color:var(--azul-medio); flex-shrink:0; }
+
+  .aviso-form{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--azul-suave);
+    border-radius:12px;
+    padding:14px;
+    font-size:.85rem;
+    color:var(--texto-suave);
+    margin-bottom:20px;
+  }
+  .aviso-form svg{ width:20px; height:20px; color:var(--azul-medio); flex-shrink:0; }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0; padding:0; margin:-1px;
+  }
+
+  .fade-in{ animation:apareceLeve .5s ease both; }
+  @keyframes apareceLeve{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     CABEÇALHO
+     ========================================================= -->
+<header class="cabecalho">
+  <div class="container">
+    <a href="#topo" class="marca">
+      <svg class="chama" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M24 4C24 4 14 14 14 24C14 31.2 18.5 36 24 36C29.5 36 34 31.2 34 24C34 20 32 17 32 17C32 21 29 22 29 22C30 16 24 10 24 10C25 15 20 18 18 22C16 26 17.5 31 21 33.5" stroke="#EE7A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 44C29.5228 44 34 39.5228 34 34C34 34 31 38 24 38C17 38 14 34 14 34C14 39.5228 18.4772 44 24 44Z" fill="#1C6FA8"/>
+      </svg>
+      Aragão Gás
+    </a>
+
+    <nav class="nav-desktop" aria-label="Menu principal">
+      <a href="#produtos">Produtos</a>
+      <a href="#pagamento">Pagamento</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#entrega">Entrega</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="acoes-cabecalho">
+      <button class="btn btn-primario btn-cabecalho" type="button" onclick="abrirModalPedido()">Pedir agora</button>
+      <button class="botao-menu" type="button" aria-label="Abrir menu" aria-expanded="false" id="botaoMenuMobile" onclick="alternarMenuMobile()">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F3B5C" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu mobile">
+    <a href="#produtos" onclick="alternarMenuMobile()">Produtos</a>
+    <a href="#pagamento" onclick="alternarMenuMobile()">Pagamento</a>
+    <a href="#como-funciona" onclick="alternarMenuMobile()">Como funciona</a>
+    <a href="#entrega" onclick="alternarMenuMobile()">Entrega</a>
+    <a href="#contato" onclick="alternarMenuMobile()">Contato</a>
+    <button class="btn btn-primario btn-bloco" type="button" onclick="abrirModalPedido(); alternarMenuMobile();">Pedir agora</button>
+  </nav>
+</header>
+
+<main id="topo">
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-selo"><span class="ponto"></span> Entrega no mesmo dia, sujeito à disponibilidade</span>
+        <h1>Gás rápido, seguro e direto na sua casa</h1>
+        <p class="sub">Peça seu botijão pelo WhatsApp em poucos minutos e receba com segurança no endereço que você escolher. Sem complicação, sem fila.</p>
+        <div class="hero-botoes">
+          <a class="btn btn-whatsapp" href="#" id="botaoHeroWhatsapp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 0 1 6.9 12.1l-.3.5.7 2.6-2.7-.7-.5.3A8 8 0 1 1 12 4Zm-3.1 4.2c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 3.9 2.2.9 2.7.7 3.2.6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.4-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.5-.9-.8-1.4-1.8-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.2-.2-.5-.5-.5-.6-.5Z"/></svg>
+            Pedir pelo WhatsApp
+          </a>
+          <a class="btn btn-secundario" href="#produtos">Ver produtos</a>
+        </div>
+
+        <div class="hero-confianca">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg> Entregadores identificados</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Atendimento ágil</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg> 4 formas de pagamento</div>
+        </div>
+      </div>
+
+      <div class="hero-arte" aria-hidden="true">
+        <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="120" cy="300" rx="70" ry="12" fill="rgba(0,0,0,.18)"/>
+          <rect x="70" y="70" width="100" height="200" rx="18" fill="#F4F9FD"/>
+          <rect x="70" y="70" width="100" height="200" rx="18" fill="url(#grad1)" opacity="0.9"/>
+          <rect x="82" y="90" width="76" height="40" rx="6" fill="#1C6FA8"/>
+          <rect x="90" y="150" width="60" height="14" rx="7" fill="#EE7A1A"/>
+          <rect x="95" y="40" width="50" height="34" rx="8" fill="#0F3B5C"/>
+          <rect x="105" y="20" width="30" height="24" rx="6" fill="#0F3B5C"/>
+          <circle cx="120" cy="18" r="8" fill="#F5B301"/>
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EAF4FB"/>
+              <stop offset="1" stop-color="#CFE4F3"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PRODUTOS
+       ========================================================= -->
+  <section id="produtos">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Produtos</h2>
+        <p>Comece pelo botijão residencial. Em breve, novos produtos entram no catálogo.</p>
+      </div>
+
+      <div class="grade-produtos">
+        <div class="card-produto fade-in">
+          <span class="selo-destaque">Mais pedido</span>
+          <div class="produto-imagem">
+            <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="30" width="60" height="95" rx="14" fill="#E9F3FB" stroke="#1C6FA8" stroke-width="3"/>
+              <rect x="34" y="45" width="32" height="18" rx="4" fill="#1C6FA8"/>
+              <rect x="40" y="10" width="20" height="22" rx="5" fill="#0F3B5C"/>
+              <rect x="46" y="0" width="8" height="12" rx="3" fill="#0F3B5C"/>
+              <circle cx="50" cy="90" r="5" fill="#EE7A1A"/>
+            </svg>
+          </div>
+          <h3>Botijão P13 — Gás residencial</h3>
+          <p class="preco" id="precoP13">Consulte o valor<small>Preço informado no WhatsApp</small></p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg> Ideal para uso doméstico</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg> Lacre de segurança verificado na entrega</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg> Troca do botijão vazio no ato</li>
+          </ul>
+          <button class="btn btn-primario btn-bloco" type="button" onclick="abrirModalPedido('Botijão P13 (residencial)')">Pedir agora</button>
+        </div>
+
+        <div class="card-futuro">
+          <div class="produto-imagem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+          </div>
+          <h3>Novos produtos em breve</h3>
+          <p>Este espaço está reservado para outros botijões e itens que a Aragão Gás for adicionando ao catálogo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FORMAS DE PAGAMENTO
+       ========================================================= -->
+  <section id="pagamento" class="fundo-suave">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Formas de pagamento</h2>
+        <p>Escolha a forma de pagamento que preferir na hora de fazer o pedido — é só avisar ao combinar a entrega.</p>
+      </div>
+
+      <div class="grade-pagamento">
+        <div class="item-pagamento" style="--cor-item:#1C6FA8">
+          <div class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+          </div>
+          <h3>Cartão</h3>
+          <p>Débito ou crédito na entrega</p>
+        </div>
+
+        <div class="item-pagamento" style="--cor-item:#0F3B5C">
+          <div class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 8l5 5"/><path d="M16 21l5-5-5-5"/><path d="M3 8h6a4 4 0 0 1 4 4v0"/><path d="M21 16h-6a4 4 0 0 1-4-4v0"/></svg>
+          </div>
+          <h3>Pix</h3>
+          <p>Pagamento instantâneo pelo celular</p>
+        </div>
+
+        <div class="item-pagamento" style="--cor-item:#EE7A1A">
+          <div class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 6v12M18 6v12"/></svg>
+          </div>
+          <h3>Dinheiro</h3>
+          <p>Pagamento em espécie na entrega</p>
+        </div>
+
+        <div class="item-pagamento" style="--cor-item:#F5B301">
+          <div class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2Z"/><path d="M12 8v8"/></svg>
+          </div>
+          <h3>Vale Gás</h3>
+          <p>Aceitamos o benefício Vale Gás</p>
+        </div>
+      </div>
+
+      <p class="pagamento-nota">Você escolhe a forma de pagamento no momento do pedido, direto na conversa do WhatsApp.</p>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       COMO FUNCIONA
+       ========================================================= -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Como funciona</h2>
+        <p>Do pedido até a porta de casa em três passos simples.</p>
+      </div>
+
+      <div class="passos">
+        <div class="passo">
+          <div class="numero">1</div>
+          <h3>Escolha o produto</h3>
+          <p>Selecione o botijão desejado na seção de produtos.</p>
+        </div>
+        <div class="passo">
+          <div class="numero">2</div>
+          <h3>Envie o pedido</h3>
+          <p>Preencha seus dados e envie a mensagem pronta pelo WhatsApp.</p>
+        </div>
+        <div class="passo">
+          <div class="numero">3</div>
+          <h3>Receba em casa</h3>
+          <p>Confirmamos o pedido e levamos até o seu endereço.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       ENTREGA / INFORMAÇÕES
+       ========================================================= -->
+  <section id="entrega" class="fundo-suave">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Entrega e atendimento</h2>
+        <p>Informações práticas para você programar seu pedido.</p>
+      </div>
+
+      <div class="info-grade">
+        <div class="info-item">
+          <div class="icone-linha">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3>Horário de atendimento</h3>
+          <p id="horarioAtendimento">Segunda a sábado, das 8h às 18h. <!-- EDITAR: horário real --></p>
+        </div>
+        <div class="info-item">
+          <div class="icone-linha">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Região atendida</h3>
+          <p id="regiaoAtendida">Consulte a disponibilidade para o seu bairro pelo WhatsApp. <!-- EDITAR: bairros atendidos --></p>
+        </div>
+        <div class="info-item">
+          <div class="icone-linha">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="13" height="7" rx="1"/><path d="M16 13h3l2 3v2h-5"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>
+          </div>
+          <h3>Entrega</h3>
+          <p>Levamos o botijão até a porta da sua casa, com prazo combinado no atendimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CTA FINAL
+       ========================================================= -->
+  <section>
+    <div class="cta-final">
+      <h2>Precisa de gás agora?</h2>
+      <p>Fale com a gente pelo WhatsApp e receba seu botijão sem sair de casa.</p>
+      <div class="cta-botoes">
+        <a class="btn btn-whatsapp" href="#" id="botaoCtaWhatsapp" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <button class="btn btn-secundario" type="button" onclick="abrirModalPedido()">Preencher formulário</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- =========================================================
+     RODAPÉ
+     ========================================================= -->
+<footer id="contato">
+  <div class="container">
+    <div class="rodape-grade">
+      <div>
+        <a href="#topo" class="marca" style="font-size:1.15rem;">
+          <svg class="chama" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 4C24 4 14 14 14 24C14 31.2 18.5 36 24 36C29.5 36 34 31.2 34 24C34 20 32 17 32 17C32 21 29 22 29 22C30 16 24 10 24 10C25 15 20 18 18 22C16 26 17.5 31 21 33.5" stroke="#F5B301" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 44C29.5228 44 34 39.5228 34 34C34 34 31 38 24 38C17 38 14 34 14 34C14 39.5228 18.4772 44 24 44Z" fill="#ffffff"/>
+          </svg>
+          Aragão Gás
+        </a>
+        <p>Gás rápido, seguro e direto na sua casa.</p>
+        <div class="rodape-social">
+          <a href="#" id="linkInstagram" aria-label="Instagram da Aragão Gás" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          </a>
+          <a href="#" id="linkFacebook" aria-label="Facebook da Aragão Gás" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M15 8h-2a2 2 0 0 0-2 2v10"/><path d="M9 13h6"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Contato</h4>
+        <ul class="rodape-contato">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2Z"/></svg> <span id="telefoneRodape">(00) 00000-0000</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> <span id="enderecoRodape">Rua Exemplo, 123 — Bairro, Cidade/UF</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Links úteis</h4>
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#pagamento">Formas de pagamento</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#entrega">Entrega e atendimento</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rodape-baixo">
+      <span>© <span id="anoAtual"></span> Aragão Gás. Todos os direitos reservados.</span>
+      <span>Site institucional — não realiza cobrança online.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =========================================================
+     BOTÃO FLUTUANTE WHATSAPP
+     ========================================================= -->
+<a class="flutuante-whatsapp" href="#" id="botaoFlutuanteWhatsapp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 0 1 6.9 12.1l-.3.5.7 2.6-2.7-.7-.5.3A8 8 0 1 1 12 4Zm-3.1 4.2c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 3.9 2.2.9 2.7.7 3.2.6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.4-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.5-.9-.8-1.4-1.8-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.2-.2-.5-.5-.5-.6-.5Z"/></svg>
+</a>
+
+<!-- =========================================================
+     MODAL DE PEDIDO
+     ========================================================= -->
+<div class="sobreposicao" id="sobreposicaoModal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+  <div class="modal-pedido">
+    <div class="modal-cabecalho">
+      <div>
+        <h2 id="tituloModal">Fazer pedido</h2>
+        <p>Preencha os dados e envie direto pelo WhatsApp.</p>
+      </div>
+      <button class="fechar-modal" type="button" aria-label="Fechar formulário" onclick="fecharModalPedido()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <form id="formPedido" novalidate>
+      <div class="campo">
+        <label for="campoNome">Nome completo</label>
+        <input type="text" id="campoNome" name="nome" required autocomplete="name" placeholder="Seu nome">
+      </div>
+
+      <div class="campo">
+        <label for="campoTelefone">Telefone / WhatsApp para contato</label>
+        <input type="tel" id="campoTelefone" name="telefone" required autocomplete="tel" placeholder="(00) 00000-0000">
+      </div>
+
+      <div class="campo">
+        <label for="campoEndereco">Endereço de entrega</label>
+        <textarea id="campoEndereco" name="endereco" required autocomplete="street-address" placeholder="Rua, número, bairro, complemento e ponto de referência"></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="campoProduto">Produto desejado</label>
+        <select id="campoProduto" name="produto" required>
+          <option value="Botijão P13 (residencial)">Botijão P13 (residencial)</option>
+        </select>
+        <p class="dica-campo">Novos produtos aparecerão aqui assim que forem adicionados.</p>
+      </div>
+
+      <div class="campo">
+        <label id="rotuloPagamento">Forma de pagamento</label>
+        <div class="grupo-radio" role="radiogroup" aria-labelledby="rotuloPagamento">
+          <label class="opcao-radio">
+            <input type="radio" name="pagamento" value="Cartão" checked>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            Cartão
+          </label>
+          <label class="opcao-radio">
+            <input type="radio" name="pagamento" value="Pix">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3 3 8l5 5"/><path d="M16 21l5-5-5-5"/></svg>
+            Pix
+          </label>
+          <label class="opcao-radio">
+            <input type="radio" name="pagamento" value="Dinheiro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+            Dinheiro
+          </label>
+          <label class="opcao-radio">
+            <input type="radio" name="pagamento" value="Vale Gás">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2Z"/></svg>
+            Vale Gás
+          </label>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="campoObservacao">Observações (opcional)</label>
+        <textarea id="campoObservacao" name="observacao" placeholder="Ex.: melhor horário para entrega"></textarea>
+      </div>
+
+      <div class="aviso-form">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        <span>Ao enviar, abriremos o WhatsApp com uma mensagem já pronta contendo estes dados. Nada é cobrado neste site.</span>
+      </div>
+
+      <button type="submit" class="btn btn-whatsapp btn-bloco">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 0 1 6.9 12.1l-.3.5.7 2.6-2.7-.7-.5.3A8 8 0 1 1 12 4Zm-3.1 4.2c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 3.9 2.2.9 2.7.7 3.2.6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.4-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.5-.9-.8-1.4-1.8-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.2-.2-.5-.5-.5-.6-.5Z"/></svg>
+        Enviar pedido pelo WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   CONFIGURAÇÃO DA EMPRESA
+   Edite apenas os valores abaixo. Eles são usados automaticamente em
+   todo o site (cabeçalho, rodapé, botões de WhatsApp e mensagem do pedido).
+   ========================================================================= */
+const CONFIG = {
+  nomeEmpresa: "Aragão Gás",
+
+  // Número de WhatsApp em formato internacional, SOMENTE NÚMEROS
+  // (código do país + DDD + número). Exemplo de formato: 5581999999999
+  whatsappNumero: "5500000000000", // <-- EDITAR
+
+  // Telefone formatado para exibição
+  telefoneExibicao: "(00) 00000-0000", // <-- EDITAR
+
+  // Endereço completo exibido no rodapé
+  endereco: "Rua Exemplo, 123 — Bairro, Cidade/UF", // <-- EDITAR
+
+  // Horário de atendimento
+  horario: "Segunda a sábado, das 8h às 18h", // <-- EDITAR
+
+  // Região atendida
+  regiaoAtendida: "Consulte a disponibilidade para o seu bairro pelo WhatsApp", // <-- EDITAR
+
+  // Preço exibido no card do produto (deixe o texto padrão se preferir
+  // informar o valor apenas no WhatsApp)
+  precoP13Texto: "Consulte o valor",
+  precoP13Detalhe: "Preço informado no WhatsApp",
+
+  // Redes sociais (deixe "#" se ainda não tiver o link)
+  instagram: "#", // <-- EDITAR
+  facebook: "#",  // <-- EDITAR
+
+  // Mensagem enviada quando o cliente clica em "Pedir pelo WhatsApp"
+  // direto (sem passar pelo formulário)
+  mensagemRapida: "Olá! Gostaria de pedir um botijão de gás."
+};
+
+/* ---------- Aplica a configuração nos elementos da página ---------- */
+function montarLinkWhatsapp(mensagem){
+  const texto = encodeURIComponent(mensagem);
+  return `https://wa.me/${CONFIG.whatsappNumero}?text=${texto}`;
+}
+
+function aplicarConfiguracao(){
+  document.getElementById('botaoHeroWhatsapp').href = montarLinkWhatsapp(CONFIG.mensagemRapida);
+  document.getElementById('botaoCtaWhatsapp').href = montarLinkWhatsapp(CONFIG.mensagemRapida);
+  document.getElementById('botaoFlutuanteWhatsapp').href = montarLinkWhatsapp(CONFIG.mensagemRapida);
+
+  document.getElementById('telefoneRodape').textContent = CONFIG.telefoneExibicao;
+  document.getElementById('enderecoRodape').textContent = CONFIG.endereco;
+  document.getElementById('horarioAtendimento').firstChild.textContent = CONFIG.horario + '. ';
+  document.getElementById('regiaoAtendida').firstChild.textContent = CONFIG.regiaoAtendida + '. ';
+
+  const preco = document.getElementById('precoP13');
+  preco.childNodes[0].textContent = CONFIG.precoP13Texto;
+  preco.querySelector('small').textContent = CONFIG.precoP13Detalhe;
+
+  document.getElementById('linkInstagram').href = CONFIG.instagram;
+  document.getElementById('linkFacebook').href = CONFIG.facebook;
+
+  document.getElementById('anoAtual').textContent = new Date().getFullYear();
+}
+aplicarConfiguracao();
+
+/* ---------- Menu mobile ---------- */
+function alternarMenuMobile(){
+  const menu = document.getElementById('menuMobile');
+  const botao = document.getElementById('botaoMenuMobile');
+  const aberto = menu.classList.toggle('aberto');
+  botao.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+}
+
+/* ---------- Modal de pedido ---------- */
+const sobreposicao = document.getElementById('sobreposicaoModal');
+let ultimoElementoFocado = null;
+
+function abrirModalPedido(produtoPreSelecionado){
+  ultimoElementoFocado = document.activeElement;
+  if(produtoPreSelecionado){
+    const select = document.getElementById('campoProduto');
+    for(const opcao of select.options){
+      if(opcao.value === produtoPreSelecionado){ select.value = produtoPreSelecionado; }
+    }
+  }
+  sobreposicao.classList.add('aberta');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('campoNome').focus(), 50);
+  document.addEventListener('keydown', fecharComEsc);
+}
+
+function fecharModalPedido(){
+  sobreposicao.classList.remove('aberta');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', fecharComEsc);
+  if(ultimoElementoFocado) ultimoElementoFocado.focus();
+}
+
+function fecharComEsc(evento){
+  if(evento.key === 'Escape') fecharModalPedido();
+}
+
+sobreposicao.addEventListener('click', function(evento){
+  if(evento.target === sobreposicao) fecharModalPedido();
+});
+
+/* ---------- Envio do formulário -> mensagem pronta no WhatsApp ---------- */
+document.getElementById('formPedido').addEventListener('submit', function(evento){
+  evento.preventDefault();
+
+  const dados = new FormData(evento.target);
+  const nome = (dados.get('nome') || '').trim();
+  const telefone = (dados.get('telefone') || '').trim();
+  const endereco = (dados.get('endereco') || '').trim();
+  const produto = dados.get('produto');
+  const pagamento = dados.get('pagamento');
+  const observacao = (dados.get('observacao') || '').trim();
+
+  if(!nome || !telefone || !endereco){
+    alert('Por favor, preencha nome, telefone e endereço para continuar.');
+    return;
+  }
+
+  let mensagem = `Olá, ${CONFIG.nomeEmpresa}! Gostaria de fazer um pedido:\n\n`;
+  mensagem += `Nome: ${nome}\n`;
+  mensagem += `Telefone: ${telefone}\n`;
+  mensagem += `Endereço de entrega: ${endereco}\n`;
+  mensagem += `Produto: ${produto}\n`;
+  mensagem += `Forma de pagamento: ${pagamento}\n`;
+  if(observacao){ mensagem += `Observações: ${observacao}\n`; }
+
+  window.open(montarLinkWhatsapp(mensagem), '_blank', 'noopener');
+  fecharModalPedido();
+  evento.target.reset();
+});
+</script>
+
+</body>
+</html>
